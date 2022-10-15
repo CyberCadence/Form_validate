@@ -1,4 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:git_fetchapi2/Services/db.dart';
+import 'package:git_fetchapi2/model/modeldata.dart';
+import 'package:git_fetchapi2/view/ListTickets.dart';
 import 'package:meta/meta.dart';
 
 part 'form_event.dart';
@@ -23,12 +27,39 @@ class FormBloc extends Bloc<FormEvent, FormStatee> {
     });
 
 
-on<FormSubmittedEvent>((event, emit) {
+on<FormSubmittedEvent>((event, emit) async{
     emit(FormLoadingState());
 
+//newpage state
+
+await Future.delayed(const Duration(seconds: 5));
+ 
+emit(DBcreateState());
+try {
+  
+
+
+FireStore().addData(FormModel(title: event.title, description: event.description,
+ location: event.location, date: event.date));
 
 
 
+
+} catch (e) {
+  emit(DBcreateErrorState(message: e.toString()));
+}
+
+
+});
+
+
+on<PageRouteEvent>((event, emit) {
+
+
+emit(PageRouteState());
+MaterialPageRoute(builder: (context) =>const ListTickets() );
+  
+  
 });
 
 

@@ -55,7 +55,8 @@ class _MyAppState extends State<MyApp> {
                     hintText: 'Details',
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Colors.greenAccent),
+                          const BorderSide(width: 1,
+                           color: Colors.greenAccent),
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
@@ -116,15 +117,36 @@ if(state is FormLoadingState){
   return const Center(child: CircularProgressIndicator(),);
 }
                     
-                    return MaterialButton(color: (state is FormValidState)?Colors.blue:Colors.grey,
-                        onPressed: () {
-                           BlocProvider.of<FormBloc>(context).add( FormSubmittedEvent(title: titletextEditingController.text,
-                            description: descriptiontextEditingController.text, location: locationtextEditingController.text,
+                    return MaterialButton(
+                      color:
+                    
+                     (state is FormValidState)?Colors.blue:Colors.grey,
+                        onPressed: ()
+                        
+                        
+                         {
+                           BlocProvider.of<FormBloc>(context).
+                           add( FormSubmittedEvent(title: titletextEditingController.text,
+                            description: descriptiontextEditingController.text, 
+                            location: locationtextEditingController.text,
                              date: datetextEditingController.text));
                         }, child: const Text('Submit'));
                   },
                 )
-              ],
+             ,const SizedBox(height: 10,),BlocBuilder(builder: (context, state) {
+               
+
+
+
+               return  MaterialButton(color: Colors.blueAccent,
+                child: const Text('show tickets'),
+                onPressed: ( ){BlocProvider.of<FormBloc>(context).add(PageRouteEvent());
+             
+                  
+                });
+             },
+               
+             ) ],
             ),
           ))),
     );

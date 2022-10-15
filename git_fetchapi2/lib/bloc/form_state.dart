@@ -1,7 +1,5 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'form_bloc.dart';
-
- 
-
 
 class FormStatee{}
 
@@ -24,4 +22,16 @@ final String error;
 class FormLoadingState extends FormStatee{}
 
 
+class FormSubmittedState extends FormStatee{}
 
+
+class DBcreateState extends FormStatee{}
+
+class DBcreateErrorState extends FormStatee {
+final String message;
+  DBcreateErrorState({
+    required this.message,
+  });
+
+}
+class PageRouteState extends FormStatee{}
