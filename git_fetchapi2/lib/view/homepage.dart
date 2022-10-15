@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:git_fetchapi2/view/bloc/formm_bloc.dart';
+import 'package:git_fetchapi2/bloc/form_bloc.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -30,7 +30,11 @@ class _MyAppState extends State<MyApp> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                TextField(
+                TextField(onChanged: (value) {
+                  BlocProvider.of<FormBloc>(context).add(FormTextChangedEvent(titlevalue: titletextEditingController.text,
+                   descriptionvalue: descriptiontextEditingController.text, locationvalue: locationtextEditingController.text,
+                    datevalue: datetextEditingController.text));
+                },
                   controller: titletextEditingController,
                   decoration: InputDecoration(
                     hintText: 'Title',
@@ -44,7 +48,9 @@ class _MyAppState extends State<MyApp> {
                 const SizedBox(
                   height: 10,
                 ),
-                TextField(
+                TextField(onChanged: (value) =>  BlocProvider.of<FormBloc>(context).add(FormTextChangedEvent(titlevalue: titletextEditingController.text,
+                   descriptionvalue: descriptiontextEditingController.text, locationvalue: locationtextEditingController.text,
+                    datevalue: datetextEditingController.text)),
                   decoration: InputDecoration(
                     hintText: 'Details',
                     enabledBorder: OutlineInputBorder(
@@ -58,7 +64,9 @@ class _MyAppState extends State<MyApp> {
                 const SizedBox(
                   height: 10,
                 ),
-                TextField(
+                TextField(onChanged: (value) =>  BlocProvider.of<FormBloc>(context).add(FormTextChangedEvent(titlevalue: titletextEditingController.text,
+                   descriptionvalue: descriptiontextEditingController.text, locationvalue: locationtextEditingController.text,
+                    datevalue: datetextEditingController.text)),
                   controller: locationtextEditingController,
                   decoration: InputDecoration(
                     hintText: 'Location',
@@ -73,7 +81,9 @@ class _MyAppState extends State<MyApp> {
                   height: 10,
                 ),
                 TextField(
-                  controller: datetextEditingController,
+                  controller: datetextEditingController,onChanged: (value) =>  BlocProvider.of<FormBloc>(context).add(FormTextChangedEvent(titlevalue: titletextEditingController.text,
+                   descriptionvalue: descriptiontextEditingController.text, locationvalue: locationtextEditingController.text,
+                    datevalue: datetextEditingController.text)),
                   decoration: InputDecoration(
                     hintText: 'Date',
                     enabledBorder: OutlineInputBorder(
@@ -86,11 +96,34 @@ class _MyAppState extends State<MyApp> {
                 const SizedBox(
                   height: 10,
                 ),
-            
+                BlocBuilder<FormBloc, FormStatee>(
+                  builder: (context, state) {
+                    if (state is FormErrorState) {
+                      return Center(child: Text(state.error));
+                    } else {
+                      return Container();
+                    }
+                  },
+                ),
                 const SizedBox(
                   height: 10,
                 ),
-                ElevatedButton(child: const Text('SUBMIT'), onPressed: () {})
+                BlocBuilder<FormBloc, FormStatee>(
+                  builder: (context, state) {
+
+if(state is FormLoadingState){
+
+  return const Center(child: CircularProgressIndicator(),);
+}
+                    
+                    return MaterialButton(color: (state is FormValidState)?Colors.blue:Colors.grey,
+                        onPressed: () {
+                           BlocProvider.of<FormBloc>(context).add( FormSubmittedEvent(title: titletextEditingController.text,
+                            description: descriptiontextEditingController.text, location: locationtextEditingController.text,
+                             date: datetextEditingController.text));
+                        }, child: const Text('Submit'));
+                  },
+                )
               ],
             ),
           ))),

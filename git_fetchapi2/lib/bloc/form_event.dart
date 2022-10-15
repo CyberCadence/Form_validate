@@ -1,5 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-abstract class FormEvent{}
+part of 'form_bloc.dart';
+
+ 
+abstract class FormEvent {}
+
+
 class FormTextChangedEvent extends FormEvent {
 
 
@@ -31,3 +35,4 @@ final String date;
     required this.date,
   });
 }
+
