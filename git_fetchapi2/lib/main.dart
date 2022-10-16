@@ -10,7 +10,7 @@ void main()async {
 await Firebase.initializeApp();
   runApp(  BlocProvider(
     create: (context) => FormBloc(),
-    child: MyApp(),
+    child:   MaterialApp(home: MyApp()),
   ));
 }
  

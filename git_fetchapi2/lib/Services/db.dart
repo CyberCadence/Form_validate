@@ -12,4 +12,24 @@ class FireStore {
         .add(formModel.toMap())
         .then((value) => print(value));
   }
+ 
+
+
+Stream<List<FormModel>> getProducts() {
+    return FirebaseFirestore.instance.collection('Tickets').snapshots().map((snapshot) =>
+
+snapshot.docs.map((doc) {
+
+final data=doc.data();
+return FormModel.fromMap(data);
+
+}).toList()
+
+    );
+        
+
 }
+
+
+}
+

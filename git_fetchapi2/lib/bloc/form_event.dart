@@ -35,21 +35,9 @@ final String date;
     required this.date,
   });
 }
-class FormDbCreateEvent extends FormEvent {
-
-final String title;
-final String description;
-final String location;
-final String date;
-  FormDbCreateEvent({
-    required this.title,
-    required this.description,
-    required this.location,
-    required this.date,
-  });
+ 
 
 
 
-
-}
+ 
 class PageRouteEvent extends FormEvent{}
