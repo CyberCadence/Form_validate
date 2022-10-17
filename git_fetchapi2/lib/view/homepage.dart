@@ -1,23 +1,12 @@
-import 'dart:io';
-
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:git_fetchapi2/bloc/form_bloc.dart';
 import 'package:git_fetchapi2/view/ListTickets.dart';
-import 'package:image_picker/image_picker.dart';
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
 
-
-    MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
- File? imagefile;
+ 
   TextEditingController titletextEditingController = TextEditingController();
 
   TextEditingController descriptiontextEditingController =
@@ -32,7 +21,7 @@ class _MyAppState extends State<MyApp> {
 // final String date=DateTime.now().toString();
 
     return MaterialApp(
-      home: Scaffold(
+      home: Scaffold(resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: const Text(' RAISE TICKETS'),
           ),
@@ -145,28 +134,28 @@ class _MyAppState extends State<MyApp> {
                   height: 10,
                 ),
                 const SizedBox(height: 10,),
-                CircleAvatar(
-                  radius: 40, foregroundColor: Colors.grey.shade200,
-                  backgroundImage: (imagefile!=null)?FileImage(imagefile!):null),
+//                 CircleAvatar(
+//                   radius: 40, foregroundColor: Colors.grey.shade200,
+//                   backgroundImage: (imagefile!=null)?FileImage(imagefile!):null),
                 
-                ElevatedButton(onPressed: ( )async{
+//                 ElevatedButton(onPressed: ( )async{
 
- XFile? selectedImage=await ImagePicker().pickImage(source: ImageSource.gallery);
-if(selectedImage!=null){
+//  XFile? selectedImage=await ImagePicker().pickImage(source: ImageSource.gallery);
+// if(selectedImage!=null){
 
-File convertedFile= File(selectedImage.path);
-setState(() {
-  imagefile=convertedFile;
-});
+// File convertedFile= File(selectedImage.path);
+// setState(() {
+//   imagefile=convertedFile;
+// });
 
 
-}else{
-print('No image seleted');
+// }else{
+// print('No image seleted');
 
-}
+// }
 
-                }, child: const Text('Image Upload'))
-            ,
+//                 }, child: const Text('Image Upload'))
+//             ,
             
             
             const SizedBox(height: 10,),    BlocBuilder<FormBloc, FormStatee>(

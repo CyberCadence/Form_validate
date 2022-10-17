@@ -23,7 +23,7 @@ class ListTickets extends StatelessWidget {
                         final Tickets = snapshot.data![index];
 
                         return ListTile(
-                          title: Text(Tickets.title),
+                          title: Text(Tickets.title),leading: Text( Tickets.description),subtitle: Text(Tickets.location),trailing: Text(Tickets.date),
                         );
                       }));
                 }return const Center(child: Text('No data found '),);
