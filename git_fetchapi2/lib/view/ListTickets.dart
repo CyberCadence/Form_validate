@@ -13,7 +13,7 @@ class ListTickets extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: StreamBuilder<List<FormModel>>(
-              stream: FireStore().getProducts(),
+              stream: FireStore().getAllTickets(),
               builder: ((context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.active &&
                     snapshot.data != null) {

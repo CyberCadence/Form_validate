@@ -1,14 +1,25 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:git_fetchapi2/bloc/form_bloc.dart';
 import 'package:git_fetchapi2/view/ListTickets.dart';
+import 'package:image_picker/image_picker.dart';
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+
+
     MyApp({Key? key}) : super(key: key);
 
   @override
- 
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+ File? imagefile;
   TextEditingController titletextEditingController = TextEditingController();
+
   TextEditingController descriptiontextEditingController =
       TextEditingController();
 
@@ -18,6 +29,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+// final String date=DateTime.now().toString();
+
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
@@ -131,7 +144,32 @@ class MyApp extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                BlocBuilder<FormBloc, FormStatee>(
+                const SizedBox(height: 10,),
+                CircleAvatar(
+                  radius: 40, foregroundColor: Colors.grey.shade200,
+                  backgroundImage: (imagefile!=null)?FileImage(imagefile!):null),
+                
+                ElevatedButton(onPressed: ( )async{
+
+ XFile? selectedImage=await ImagePicker().pickImage(source: ImageSource.gallery);
+if(selectedImage!=null){
+
+File convertedFile= File(selectedImage.path);
+setState(() {
+  imagefile=convertedFile;
+});
+
+
+}else{
+print('No image seleted');
+
+}
+
+                }, child: const Text('Image Upload'))
+            ,
+            
+            
+            const SizedBox(height: 10,),    BlocBuilder<FormBloc, FormStatee>(
                   builder: (context, state) {
                     if (state is FormLoadingState) {
                       return const Center(
@@ -150,7 +188,7 @@ class MyApp extends StatelessWidget {
                                   description:
                                       descriptiontextEditingController.text,
                                   location: locationtextEditingController.text,
-                                  date: datetextEditingController.text));
+                                  date: datetextEditingController.text ));
                         },
                         child: const Text('Submit'));
                   },
@@ -160,8 +198,9 @@ class MyApp extends StatelessWidget {
                 ),
           MaterialButton(color: Colors.blue,
             child: const Text('Tickets'),
-            onPressed: ( ){
-              Navigator.push(context, MaterialPageRoute(builder: ( context) =>  const ListTickets() ));})
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: ( context) =>  
+              const ListTickets() ));})
               ],
             ),
           ))),
